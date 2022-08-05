@@ -1,23 +1,30 @@
 import logo from './logo.svg';
+import React from "react";
 import './App.css';
 
+import {Popup} from "./Popup.js"
+
+
 function App() {
+
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  const togglePopup = () => {
+    setIsOpen(!isOpen);
+  }
+
+  const onSubmit = (e, address, isERC721, isERC1155) => {
+    e.preventDefault();
+    console.log(address, isERC721, isERC1155);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <button className = "test-nft-btn" onClick = {togglePopup}>Get Test NFTs</button>
+      {isOpen && <Popup 
+        onSubmit = {onSubmit}
+        handleClose = {togglePopup}
+      />}
     </div>
   );
 }
